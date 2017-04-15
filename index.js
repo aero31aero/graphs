@@ -76,9 +76,8 @@ window.onload = function(e){
   var highlightPath = function(path,instance,source,target){
     var route = [];
     var foundroot = false;
-    route.push(target);
+    route.push(parseInt(target));
     var maxtries = 15;
-
     while(!foundroot){
       target = path[target];
       console.log("Target:",target);
@@ -112,7 +111,7 @@ window.onload = function(e){
     console.log(graphholder);
     var instance = greuler({
       target: '#graph',
-      width: 1500,
+      width: 1000,
       height: 600,
       data: data
     });
@@ -124,6 +123,24 @@ window.onload = function(e){
     // highlightPath(path.path,window.instance,0,10);
     return instance;
   }
-
+  // document.getElementById("graph-maker").onclick=function(e){
+  //   console.log('Hello');
+  // };
   window.instance = main();
 };
+
+function findPath(button){
+  console.log("Clicked");
+  var source = prompt("Source Node");
+  var target = prompt("Target Node");
+
+  if(source >= 0 && source <=14){
+    if(target >= 0 && target <=14){
+      //var nodes=graph.getAllNodes();
+      var path=dijkstra(graph,nodes[source],nodes[target]);
+      console.log(path.distance);
+      button.innerHTML="Distance = " + path.distance;
+      highlightPath(path.path,window.instance,source,target);
+    }
+  }
+}
