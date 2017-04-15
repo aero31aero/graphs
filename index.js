@@ -78,8 +78,10 @@ window.onload = function(e){
     var foundroot = false;
     route.push(target);
     var maxtries = 15;
+
     while(!foundroot){
       target = path[target];
+      console.log("Target:",target);
       route.push(target);
       if(target==source){
         foundroot = true;
@@ -87,18 +89,17 @@ window.onload = function(e){
       maxtries--;
       if(maxtries == 0){
         foundroot = true;
+        continue;
       }
-      console.log(route);
     }
+    route.reverse();
+    console.log(route);
 
-    var order = instance.graph.nodes.length;
-    var size = instance.graph.edges.length;
-
-    var id = Math.floor(Math.random() * order);
-
-    var adjacent = instance.graph.getAdjacentNodes({ id: id });
-    var v = adjacent[0].id;
-    instance.selector.traverseAllEdgesBetween({ source: id, target: v });
+    for(var i=0;i<route.length-1;i++){
+      var linefrom = route[i];
+      var lineto = route[i+1];
+      instance.selector.traverseAllEdgesBetween({ source: linefrom, target: lineto });
+    }
   }
   window.highlightPath = highlightPath;
 
@@ -118,9 +119,9 @@ window.onload = function(e){
     console.log(instance);
     instance.update();
     var nodes=graph.getAllNodes();
-    var path=dijkstra(graph,nodes[0],nodes[10]);
-    console.log("Distance",path);
-    highlightPath(path,instance,0,10);
+    // var path=dijkstra(graph,nodes[0],nodes[10]);
+    // console.log("Distance",path);
+    // highlightPath(path.path,window.instance,0,10);
     return instance;
   }
 
