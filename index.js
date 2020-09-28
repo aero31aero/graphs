@@ -112,7 +112,7 @@ window.onload = function(e){
     var instance = greuler({
       target: '#graph',
       width: 1000,
-      height: 600,
+      height: 800,
       data: data
     });
     console.log(instance);
