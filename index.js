@@ -1,4 +1,6 @@
-window.onload = function(e){
+window.graphlength = 15;
+
+window.freshload = function(e){
   var getVisualData = function(graph){
     var data={};
     data.nodes=[];
@@ -103,7 +105,7 @@ window.onload = function(e){
   window.highlightPath = highlightPath;
 
   var main = function(){
-    var graph = makeGraph(makeRandomGraph(15));
+    var graph = makeGraph(makeRandomGraph(window.graphlength));
     var data = getVisualData(graph);
     var graphholder = document.getElementById("graph-container");
     console.log("width",graphholder.width);
@@ -134,8 +136,8 @@ function findPath(button){
   var source = prompt("Source Node");
   var target = prompt("Target Node");
 
-  if(source >= 0 && source <=14){
-    if(target >= 0 && target <=14){
+  if(source >= 0 && source <window.graphlength){
+    if(target >= 0 && target <window.graphlength){
       //var nodes=graph.getAllNodes();
       var path=dijkstra(graph,nodes[source],nodes[target]);
       console.log(path.distance);
@@ -144,3 +146,5 @@ function findPath(button){
     }
   }
 }
+
+window.onload = window.freshload;
